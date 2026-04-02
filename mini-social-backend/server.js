@@ -1,0 +1,48 @@
+// const express = require('express');
+// const cors = require('cors');
+// const dotenv = require('dotenv');
+// const connectDB = require('./config/db');
+
+// dotenv.config();
+// connectDB();
+
+// const app = express();
+
+// app.use(cors());
+// app.use(express.json());
+// app.use('/uploads', express.static('uploads'));
+
+// app.use('/api/auth', require('./routes/authRoutes'));
+// app.use('/api/posts', require('./routes/postRoutes'));
+// app.use("/uploads", express.static("uploads"));
+// app.listen(process.env.PORT, () =>
+//   console.log(`Server running on ${process.env.PORT}`)
+// );
+
+
+
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+
+dotenv.config();
+connectDB();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// ✅ IMAGE SERVE (IMPORTANT)
+app.use('/uploads', express.static('uploads'));
+
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/posts', require('./routes/postRoutes'));
+
+// Server start
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`Server running on ${process.env.PORT || 5000}`)
+);
