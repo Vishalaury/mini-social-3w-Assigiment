@@ -128,7 +128,6 @@ npm start
 
 * Pagination / Infinite Scroll
 * Image optimization
-* Notifications system
 * User profile pages
 
 ---
