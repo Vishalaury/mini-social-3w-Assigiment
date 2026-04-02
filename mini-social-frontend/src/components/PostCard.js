@@ -150,7 +150,7 @@ export default function PostCard({
           onDoubleClick={handleLike}
         >
           <img
-            src={`http://localhost:5000/uploads/${post.image}`}
+           src={`https://mini-social-3w-assigiment.onrender.com/uploads/${post.image}`}
             alt="post"
             style={{
               width: "100%",
