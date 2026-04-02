@@ -10,14 +10,14 @@ import {
   Link as MuiLink,
   CircularProgress,
 } from "@mui/material";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import {  useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
