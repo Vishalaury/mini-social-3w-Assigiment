@@ -254,19 +254,153 @@
 
 
 
+// const Post = require("../models/Post");
+
+// // Create Post (text + image)
+// exports.createPost = async (req, res) => {
+//   try {
+//     const { text } = req.body;
+
+//     // ✅ Cloudinary + multer safe access
+//     const imageUrl = req.file?.path || "";
+
+//     const post = await Post.create({
+//       user: req.user.id,
+//       text,
+//       image: imageUrl,
+//     });
+
+//     const newPost = await Post.findById(post._id)
+//       .populate("user", "username")
+//       .populate("comments.user", "username")
+//       .populate("likes.user", "username");
+
+//     res.status(201).json(newPost);
+//   } catch (err) {
+//     console.log("CREATE POST ERROR 👉", err);
+//     res.status(500).json({ msg: err.message });
+//   }
+// };
+
+// // Get Feed
+// exports.getPosts = async (req, res) => {
+//   try {
+//     const posts = await Post.find()
+//       .populate("user", "username")
+//       .populate("comments.user", "username")
+//       .populate("likes.user", "username")
+//       .sort({ createdAt: -1 });
+
+//     res.json(posts);
+//   } catch (err) {
+//     console.log("GET POSTS ERROR 👉", err);
+//     res.status(500).json({ msg: err.message });
+//   }
+// };
+
+// // Like / Unlike toggle
+// exports.likePost = async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+
+//     if (!post) return res.status(404).json({ msg: "Post not found" });
+
+//     const alreadyLiked = post.likes.find(
+//       (l) => l.user.toString() === req.user.id
+//     );
+
+//     if (alreadyLiked) {
+//       post.likes = post.likes.filter(
+//         (l) => l.user.toString() !== req.user.id
+//       );
+//     } else {
+//       post.likes.push({ user: req.user.id });
+//     }
+
+//     await post.save();
+
+//     const updatedPost = await Post.findById(post._id)
+//       .populate("user", "username")
+//       .populate("comments.user", "username")
+//       .populate("likes.user", "username");
+
+//     res.json(updatedPost);
+//   } catch (err) {
+//     console.log("LIKE ERROR 👉", err);
+//     res.status(500).json({ msg: err.message });
+//   }
+// };
+
+// // Comment
+// exports.commentPost = async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+
+//     if (!post) return res.status(404).json({ msg: "Post not found" });
+
+//     post.comments.push({
+//       user: req.user.id,
+//       text: req.body.text,
+//     });
+
+//     await post.save();
+
+//     const updatedPost = await Post.findById(post._id)
+//       .populate("user", "username")
+//       .populate("comments.user", "username")
+//       .populate("likes.user", "username");
+
+//     res.json(updatedPost);
+//   } catch (err) {
+//     console.log("COMMENT ERROR 👉", err);
+//     res.status(500).json({ msg: err.message });
+//   }
+// };
+
+// // Delete
+// exports.deletePost = async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+
+//     if (!post) return res.status(404).json({ msg: "Post not found" });
+
+//     if (post.user.toString() !== req.user.id) {
+//       return res.status(401).json({ msg: "Not authorized" });
+//     }
+
+//     await post.deleteOne();
+
+//     res.json({ msg: "Post deleted" });
+//   } catch (err) {
+//     console.log("DELETE ERROR 👉", err);
+//     res.status(500).json({ msg: err.message });
+//   }
+// };
+
+
+
+
 const Post = require("../models/Post");
 
-// Create Post (text + image)
+// ✅ Create Post (SAFE + NO ERROR)
 exports.createPost = async (req, res) => {
   try {
     const { text } = req.body;
 
-    // ✅ Cloudinary + multer safe access
+    // 🔥 DEBUG (important)
+    console.log("REQ.FILE 👉", req.file);
+
+    // ✅ Safe image handling (Cloudinary)
     const imageUrl = req.file?.path || "";
+
+    // ❗ atleast text or image required
+    if (!text && !imageUrl) {
+      return res.status(400).json({ msg: "Text or image required" });
+    }
 
     const post = await Post.create({
       user: req.user.id,
-      text,
+      text: text || "",
       image: imageUrl,
     });
 
@@ -276,13 +410,15 @@ exports.createPost = async (req, res) => {
       .populate("likes.user", "username");
 
     res.status(201).json(newPost);
+
   } catch (err) {
-    console.log("CREATE POST ERROR 👉", err);
-    res.status(500).json({ msg: err.message });
+    console.log("❌ CREATE POST ERROR 👉", err);
+    res.status(500).json({ msg: err.message || "Post creation failed" });
   }
 };
 
-// Get Feed
+
+// ✅ Get Feed
 exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.find()
@@ -292,18 +428,22 @@ exports.getPosts = async (req, res) => {
       .sort({ createdAt: -1 });
 
     res.json(posts);
+
   } catch (err) {
-    console.log("GET POSTS ERROR 👉", err);
-    res.status(500).json({ msg: err.message });
+    console.log("❌ GET POSTS ERROR 👉", err);
+    res.status(500).json({ msg: err.message || "Fetch failed" });
   }
 };
 
-// Like / Unlike toggle
+
+// ✅ Like / Unlike
 exports.likePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    if (!post) return res.status(404).json({ msg: "Post not found" });
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
 
     const alreadyLiked = post.likes.find(
       (l) => l.user.toString() === req.user.id
@@ -325,22 +465,32 @@ exports.likePost = async (req, res) => {
       .populate("likes.user", "username");
 
     res.json(updatedPost);
+
   } catch (err) {
-    console.log("LIKE ERROR 👉", err);
-    res.status(500).json({ msg: err.message });
+    console.log("❌ LIKE ERROR 👉", err);
+    res.status(500).json({ msg: err.message || "Like failed" });
   }
 };
 
-// Comment
+
+// ✅ Comment
 exports.commentPost = async (req, res) => {
   try {
+    const { text } = req.body;
+
+    if (!text) {
+      return res.status(400).json({ msg: "Comment required" });
+    }
+
     const post = await Post.findById(req.params.id);
 
-    if (!post) return res.status(404).json({ msg: "Post not found" });
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
 
     post.comments.push({
       user: req.user.id,
-      text: req.body.text,
+      text,
     });
 
     await post.save();
@@ -351,18 +501,22 @@ exports.commentPost = async (req, res) => {
       .populate("likes.user", "username");
 
     res.json(updatedPost);
+
   } catch (err) {
-    console.log("COMMENT ERROR 👉", err);
-    res.status(500).json({ msg: err.message });
+    console.log("❌ COMMENT ERROR 👉", err);
+    res.status(500).json({ msg: err.message || "Comment failed" });
   }
 };
 
-// Delete
+
+// ✅ Delete
 exports.deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    if (!post) return res.status(404).json({ msg: "Post not found" });
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
 
     if (post.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "Not authorized" });
@@ -370,9 +524,10 @@ exports.deletePost = async (req, res) => {
 
     await post.deleteOne();
 
-    res.json({ msg: "Post deleted" });
+    res.json({ msg: "Post deleted successfully" });
+
   } catch (err) {
-    console.log("DELETE ERROR 👉", err);
-    res.status(500).json({ msg: err.message });
+    console.log("❌ DELETE ERROR 👉", err);
+    res.status(500).json({ msg: err.message || "Delete failed" });
   }
 };
