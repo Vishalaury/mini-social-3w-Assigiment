@@ -22,17 +22,18 @@ export default function Navbar() {
       position="fixed"
       elevation={0}
       sx={{
+        // 🔥 PREMIUM GRADIENT NAVBAR
+        background: "linear-gradient(135deg, #667eea, #764ba2)",
         backdropFilter: "blur(12px)",
-        background: "rgba(25,118,210,0.9)",
         borderBottom: "1px solid rgba(255,255,255,0.15)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+        boxShadow: "0 6px 25px rgba(0,0,0,0.2)",
       }}
     >
       <Toolbar
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          px: 2,
+          px: 3,
         }}
       >
         {/* LOGO */}
@@ -43,22 +44,31 @@ export default function Navbar() {
             letterSpacing: "1px",
             cursor: "pointer",
             color: "#fff",
+            transition: "0.3s",
+
+            "&:hover": {
+              opacity: 0.8,
+            },
           }}
         >
-           Mini Social
+          🚀 Mini Social
         </Typography>
 
         {/* RIGHT SIDE */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
           
-          {/*  USER AVATAR */}
+          {/* USER AVATAR */}
           <Avatar
             sx={{
-              width: 32,
-              height: 32,
-              bgcolor: "#fff",
-              color: "#1976d2",
+              width: 34,
+              height: 34,
               fontWeight: "bold",
+
+              // 🔥 gradient avatar
+              background: "linear-gradient(135deg, #ffffff, #e3f2fd)",
+              color: "#333",
+
+              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
             }}
           >
             {username?.charAt(0)?.toUpperCase() || "U"}
@@ -70,6 +80,7 @@ export default function Navbar() {
               color: "#fff",
               fontSize: "14px",
               fontWeight: "500",
+              opacity: 0.9,
             }}
           >
             {username || "User"}
@@ -82,9 +93,13 @@ export default function Navbar() {
               color: "#fff",
               textTransform: "none",
               fontWeight: "600",
-              borderRadius: "10px",
+              borderRadius: "12px",
+              px: 2,
+              transition: "0.25s",
+
               "&:hover": {
                 background: "rgba(255,255,255,0.2)",
+                transform: "translateY(-2px)",
               },
             }}
           >
@@ -98,10 +113,15 @@ export default function Navbar() {
               color: "#fff",
               textTransform: "none",
               fontWeight: "600",
-              borderRadius: "10px",
+              borderRadius: "12px",
+              px: 2,
+
               background: "rgba(255,255,255,0.2)",
+              transition: "0.25s",
+
               "&:hover": {
                 background: "rgba(255,255,255,0.35)",
+                transform: "translateY(-2px)",
               },
             }}
           >

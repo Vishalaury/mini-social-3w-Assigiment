@@ -37,30 +37,30 @@ export default function Feed() {
   return (
     <div
       style={{
-        background: "#f4f6f9",
-        minHeight: "100vh"
+        background: "linear-gradient(135deg, #eef2f7, #e3f2fd)",
+        minHeight: "100vh",
       }}
     >
       <Navbar />
 
-      {/* navbar gap fix */}
       <Toolbar />
 
       <Container
         maxWidth="sm"
         sx={{
-          pb: 10,
+          pb: 12,
         }}
       >
-        {/*  LOADING */}
         {loading ? (
           <>
             {[1, 2, 3].map((i) => (
-              <Box key={i} sx={{ mb: 2 }}>
+              <Box key={i} sx={{ mb: 4 }}>
                 <Skeleton
                   variant="rectangular"
                   height={260}
-                  sx={{ borderRadius: "20px" }}
+                  sx={{
+                    borderRadius: "20px",
+                  }}
                 />
                 <Skeleton sx={{ mt: 1 }} />
                 <Skeleton width="60%" />
@@ -69,23 +69,34 @@ export default function Feed() {
           </>
         ) : posts.length > 0 ? (
           posts.map((p) => (
-            <PostCard
+            <Box
               key={p._id}
-              post={p}
-              fetchPosts={fetchPosts}
-              setPosts={setPosts}
-            />
+              sx={{
+                mb: 4,
+                transition: "0.3s ease",
+
+                "&:hover": {
+                  transform: "translateY(-6px)",
+                },
+              }}
+            >
+              <PostCard
+                post={p}
+                fetchPosts={fetchPosts}
+                setPosts={setPosts}
+              />
+            </Box>
           ))
         ) : (
           <Box
             sx={{
               textAlign: "center",
-              mt: 10,
-              opacity: 0.8
+              mt: 14,
+              opacity: 0.9,
             }}
           >
-            <Typography variant="h5" fontWeight="bold">
-               No posts yet
+            <Typography variant="h5" fontWeight="600">
+              No posts yet 🚀
             </Typography>
             <Typography variant="body2" sx={{ mt: 1 }}>
               Be the first to share something!
@@ -94,32 +105,31 @@ export default function Feed() {
         )}
       </Container>
 
-      {/* FLOATING BUTTON (TaskPlanet style) */}
       <Button
         onClick={() => setOpen(true)}
         sx={{
           position: "fixed",
-          bottom: 25,
-          right: 25,
+          bottom: 35,
+          right: 35,
           borderRadius: "50%",
-          width: 65,
-          height: 65,
-          fontSize: "30px",
-          background: "linear-gradient(45deg, #1976d2, #42a5f5)",
+          width: 72,
+          height: 72,
+          fontSize: "34px",
+          fontWeight: "bold",
+          background: "linear-gradient(135deg, #ff6a00, #ee0979)",
           color: "#fff",
-          boxShadow: "0 8px 25px rgba(0,0,0,0.25)",
-          transition: "0.2s",
+          boxShadow: "0 15px 35px rgba(0,0,0,0.35)",
+          transition: "0.25s ease",
 
           "&:hover": {
-            transform: "scale(1.1)",
-            background: "linear-gradient(45deg, #1565c0, #2196f3)",
+            transform: "scale(1.15)",
+            boxShadow: "0 20px 45px rgba(0,0,0,0.45)",
           },
         }}
       >
         +
       </Button>
 
-      {/* MODAL */}
       <CreatePostModal
         open={open}
         handleClose={() => setOpen(false)}
