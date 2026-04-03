@@ -81,13 +81,52 @@
 // module.exports = router;
 
 
+// const router = require("express").Router();
+// const auth = require("../middleware/authMiddleware");
+// const multer = require("multer");
+// const cloudinary = require("../config/cloudinary");
+// const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+// // ✅ FIXED storage
+// const storage = new CloudinaryStorage({
+//   cloudinary: cloudinary,
+//   params: async (req, file) => {
+//     return {
+//       folder: "mini-social-posts",
+//       resource_type: "image",
+//       public_id: Date.now() + "-" + file.originalname,
+//     };
+//   },
+// });
+
+// const upload = multer({ storage });
+
+// // controllers
+// const {
+//   createPost,
+//   getPosts,
+//   likePost,
+//   commentPost,
+//   deletePost,
+// } = require("../controllers/postController");
+
+// // routes
+// router.post("/", auth, upload.single("image"), createPost);
+// router.get("/", getPosts);
+// router.post("/like/:id", auth, likePost);
+// router.post("/comment/:id", auth, commentPost);
+// router.delete("/:id", auth, deletePost);
+
+// module.exports = router;
+
+
 const router = require("express").Router();
 const auth = require("../middleware/authMiddleware");
 const multer = require("multer");
 const cloudinary = require("../config/cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-// ✅ FIXED storage
+// ✅ Cloudinary storage (FINAL FIXED)
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
@@ -99,6 +138,7 @@ const storage = new CloudinaryStorage({
   },
 });
 
+// ✅ Multer instance
 const upload = multer({ storage });
 
 // controllers
@@ -110,11 +150,36 @@ const {
   deletePost,
 } = require("../controllers/postController");
 
-// routes
-router.post("/", auth, upload.single("image"), createPost);
+
+// ✅ Create Post (WITH ERROR HANDLING 🔥)
+router.post(
+  "/",
+  auth,
+  (req, res, next) => {
+    upload.single("image")(req, res, function (err) {
+      if (err) {
+        console.log("🔥 MULTER/CLOUDINARY ERROR 👉", err);
+        return res.status(500).json({
+          msg: err.message || "Image upload failed",
+        });
+      }
+      next();
+    });
+  },
+  createPost
+);
+
+
+// ✅ Get Posts
 router.get("/", getPosts);
+
+// ✅ Like / Unlike
 router.post("/like/:id", auth, likePost);
+
+// ✅ Comment
 router.post("/comment/:id", auth, commentPost);
+
+// ✅ Delete
 router.delete("/:id", auth, deletePost);
 
 module.exports = router;
