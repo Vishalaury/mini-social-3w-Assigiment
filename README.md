@@ -1,145 +1,78 @@
-# 🚀 Mini Social Post Application
+🚀 Mini Social Media Application
 
-A full-stack social media web application where users can create posts (text/images), like, and comment — inspired by the TaskPlanet social feed.
+A full-stack social media web application where users can create posts (text/images), like, and comment in real-time — inspired by modern social feed platforms.
 
----
+🌐 Live Demo
+Frontend (Vercel): https://mini-social-3w-assigiment.vercel.app/
+Backend (Render): https://mini-social-3w-assigiment.onrender.com
 
-## 🌐 Live Demo
+✨ Key Features
 
-* **Frontend (Vercel):** https://mini-social-3w-assigiment.vercel.app/
-* **Backend (Render):** https://mini-social-3w-assigiment.onrender.com
+🔐 Authentication
 
----
-
-## ✨ Key Features
-
-### 🔐 Authentication
-
-* Secure user signup & login
+* Secure user signup and login
 * JWT-based authentication
 * Protected routes for authorized users
 
----
+📝 Post Creation
 
-### 📝 Create Post
-
-* Users can create posts with:
-
-  * Text
-  * Image
-  * Or both
+* Create posts with text, images, or both
 * Instant UI updates after posting
 
----
-
-### 📰 Public Feed
+📰 Public Feed
 
 * Displays posts from all users
-* Shows:
+* Shows username, content, images, likes, and comments
 
-  * Username
-  * Post content
-  * Image (if available)
-  * Likes count
-  * Comments count
-
----
-
-### ❤️ Like & 💬 Comment System
+❤️ Like & 💬 Comment System
 
 * Like and unlike posts
 * Add and view comments
 * Real-time UI updates
-* Stores usernames of users who liked or commented
+* Tracks users who liked or commented
 
----
+🛠 Tech Stack
 
-## 🛠 Tech Stack
+Frontend: React.js, Material UI (MUI)
+Backend: Node.js, Express.js
+Database: MongoDB Atlas
 
-### Frontend
-
-* React.js
-* Material UI (MUI)
-
-### Backend
-
-* Node.js
-* Express.js
-
-### Database
-
-* MongoDB Atlas
-
----
-
-## ⚙️ Project Structure
-
-```
+⚙️ Project Structure
 mini-social-app/
- ├── frontend/
- ├── backend/
- └── README.md
-```
+├── frontend/
+├── backend/
+└── README.md
 
----
+🚀 Getting Started
 
-## 🚀 Getting Started
+1. Clone the repository
+   git clone https://github.com/Vishalaury/mini-social-3w-Assigiment.git
 
-### 1️⃣ Clone the Repository
+2. Setup Backend
+   cd backend
+   npm install
+   npm start
 
-```
-git clone https://github.com/Vishalaury/mini-social-3w-Assigiment.git
-cd mini-social-3w-Assigiment
-```
+3. Setup Frontend
+   cd frontend
+   npm install
+   npm start
 
----
-
-### 2️⃣ Setup Backend
-
-```
-cd backend
-npm install
-npm start
-```
-
----
-
-### 3️⃣ Setup Frontend
-
-```
-cd frontend
-npm install
-npm start
-```
-
----
-
-## 🔥 Highlights
+🔥 Highlights
 
 * Clean and responsive UI
-* Modular and reusable code structure
+* Modular and scalable code structure
 * RESTful API design
 * Efficient state management
-* Real-time interaction (likes & comments)
+* Real-time interactions (likes & comments)
 
----
+📌 Future Improvements
 
-## 📌 Future Improvements
-
-* Pagination / Infinite Scroll
+* Pagination / Infinite scroll
 * Image optimization
 * User profile pages
 
----
-
-## 👨‍💻 Author
-
-**Vishal Maurya**
+👨‍💻 Author
+Vishal Maurya
 📧 [mauryavishal99919@gmail.com](mailto:mauryavishal99919@gmail.com)
 📞 8081553770
-
----
-
-## ⭐ Note
-
-This project was built as part of a Full Stack Internship assignment and demonstrates core MERN stack development skills including authentication, CRUD operations, and real-time UI updates.
