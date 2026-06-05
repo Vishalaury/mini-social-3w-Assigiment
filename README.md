@@ -1,78 +1,135 @@
-🚀 Mini Social Media Application
+# 🚀 Mini Social Media Application
 
-A full-stack social media web application where users can create posts (text/images), like, and comment in real-time — inspired by modern social feed platforms.
+A full-stack social media web application where users can create posts (text, images, or both), like posts, and comment in real time. Inspired by modern social feed platforms and built using the MERN stack.
 
-🌐 Live Demo
-Frontend (Vercel): https://mini-social-3w-assigiment.vercel.app/
-Backend (Render): https://mini-social-3w-assigiment.onrender.com
+## 🌐 Live Demo
 
-✨ Key Features
+**Frontend (Vercel):** https://mini-social-3w-assigiment.vercel.app/
 
-🔐 Authentication
+**Backend (Render):** https://mini-social-3w-assigiment.onrender.com
 
-* Secure user signup and login
-* JWT-based authentication
-* Protected routes for authorized users
+---
 
-📝 Post Creation
+## ✨ Features
 
-* Create posts with text, images, or both
+### 🔐 Authentication
+
+* User Signup & Login
+* JWT-based Authentication
+* Protected Routes
+
+### 📝 Create Posts
+
+* Create text-only posts
+* Create image-only posts
+* Create posts with both text and images
 * Instant UI updates after posting
 
-📰 Public Feed
+### 📰 Public Feed
 
-* Displays posts from all users
-* Shows username, content, images, likes, and comments
+* View posts from all users
+* Displays username, content, image, likes, and comments
 
-❤️ Like & 💬 Comment System
+### ❤️ Likes & 💬 Comments
 
 * Like and unlike posts
-* Add and view comments
-* Real-time UI updates
-* Tracks users who liked or commented
+* Add comments on posts
+* View comments instantly
+* Displays users who liked posts
 
-🛠 Tech Stack
+### 🗑️ Post Management
 
-Frontend: React.js, Material UI (MUI)
-Backend: Node.js, Express.js
-Database: MongoDB Atlas
+* Users can delete only their own posts
+* Protected authorization logic
 
-⚙️ Project Structure
-mini-social-app/
-├── frontend/
-├── backend/
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React.js
+* Material UI (MUI)
+* Axios
+
+### Backend
+
+* Node.js
+* Express.js
+* JWT Authentication
+* Multer
+
+### Database
+
+* MongoDB Atlas
+
+### Image Storage
+
+* Cloudinary
+
+---
+
+## 📂 Project Structure
+
+mini-social-3w-Assigiment/
+
+├── mini-social-frontend/
+
+├── mini-social-backend/
+
 └── README.md
 
-🚀 Getting Started
+---
 
-1. Clone the repository
-   git clone https://github.com/Vishalaury/mini-social-3w-Assigiment.git
+## 🚀 Installation
 
-2. Setup Backend
-   cd backend
-   npm install
-   npm start
+### Clone Repository
 
-3. Setup Frontend
-   cd frontend
-   npm install
-   npm start
+git clone https://github.com/Vishalaury/mini-social-3w-Assigiment.git
 
-🔥 Highlights
+### Frontend
+
+cd mini-social-frontend
+
+npm install
+
+npm start
+
+### Backend
+
+cd mini-social-backend
+
+npm install
+
+npm start
+
+---
+
+## 🔥 Highlights
 
 * Clean and responsive UI
-* Modular and scalable code structure
-* RESTful API design
-* Efficient state management
-* Real-time interactions (likes & comments)
+* MERN Stack Architecture
+* RESTful APIs
+* Authentication & Authorization
+* Real-time UI updates for likes and comments
+* Modular and reusable code structure
 
-📌 Future Improvements
+---
 
-* Pagination / Infinite scroll
-* Image optimization
-* User profile pages
+## 📌 Future Improvements
 
-👨‍💻 Author
-Vishal Maurya
+* Pagination / Infinite Scroll
+* User Profiles
+* Edit Posts
+* Notifications
+* Dark Mode
+
+---
+
+## 👨‍💻 Author
+
+**Vishal Maurya**
+
 📧 [mauryavishal99919@gmail.com](mailto:mauryavishal99919@gmail.com)
+
 📞 8081553770
