@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 import API from "../api/api";
 import {
   Card,
@@ -140,11 +141,21 @@ export default function PostCard({
           <Typography fontWeight="600" fontSize="15px">
             {post?.user?.username || "User"}
           </Typography>
-          <Typography variant="caption" color="gray">
+          {/* <Typography variant="caption" color="gray">
             {post?.createdAt
               ? new Date(post.createdAt).toLocaleString()
               : ""}
-          </Typography>
+          </Typography> */}
+          <Typography variant="caption" color="gray">
+  {post?.createdAt
+    ? formatDistanceToNow(new Date(post.createdAt), {
+        addSuffix: true,
+      })
+    : ""}
+</Typography>
+
+
+
         </div>
 
         {isOwner && (
